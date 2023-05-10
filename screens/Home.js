@@ -143,16 +143,17 @@ const ItemComp = ({ image, heading, subHeading }) => {
     )
 }
 
-const HorizontalComp = ({ image, text }) => {
+const HorizontalComp = ({ image, text, toTrekking }) => {
     return( 
-        <View style={{ backgroundColor: '#D7DF23', height: 100, width: 100, borderRadius: 10, marginHorizontal: 5, marginVertical: 10, display: 'flex', justifyContent: 'center' , alignItems: 'center',}}>
-            <TouchableOpacity style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+        <View style={{ backgroundColor: 'white', overflow: 'hidden',  borderWidth: 1, borderColor: 'lightgrey', height: 140, width: 140, borderRadius: 10, marginHorizontal: 5, marginVertical: 10, display: 'flex', justifyContent: 'center' , alignItems: 'center',}}>
+            <View style={{ position: 'absolute', backgroundColor: '#D7DF23', height: 200, width: 200, borderRadius: 1000, top: 50  }}></View>
+            <TouchableOpacity onPress={text == 'Trekking Gear' ? toTrekking : () => console.log('Hello')} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
                 <Image 
                     source={image} 
                     resizeMode='contain'
-                    style={{ width: 60, height: 60 }}
+                    style={{ width: 120, height: 120 }}
                 />
-                <Text style={{ fontSize: 13, color: 'black' }}>{text}</Text>
+                <Text style={{ fontSize: 13, color: 'black', marginBottom: 10 }}>{text}</Text>
             </TouchableOpacity>
         </View>
      )
@@ -184,7 +185,8 @@ const SlideshowComp = () => {
                 <TouchableOpacity onPress={decrement}>
                     <Icon name="angle-left" size={30} color={primary} />
                 </TouchableOpacity>
-                <View style={{ backgroundColor: '#D7DF23', borderRadius: 20, height: 300, overflow: 'hidden',  width: 300, display: 'flex', justifyContent: 'center', alignItems: 'center', marginHorizontal: 20, marginVertical: 10 }}>
+                <View style={{ backgroundColor: 'white', borderRadius: 10, height: 300, overflow: 'hidden',  width: 300, display: 'flex', justifyContent: 'center', alignItems: 'center', marginHorizontal: 20, marginVertical: 10 }}>
+                    <View style={{ position: 'absolute', backgroundColor: '#D7DF23', height: 400, width: 400, borderRadius: 1000, top: 70 }}></View>
                     <Image 
                         source={slider[count].uri} 
                         resizeMode='contain'
@@ -207,18 +209,21 @@ const SlideshowComp = () => {
     )
 }
 
-
-const Home = () => {
+const Home = ({ navigation }) => {
     const [show, setShow] = useState(false);
 
     const toggleBar = () => setShow(!show);
+
+    const toTrekking = () => {
+        navigation.navigate('Trekking');
+    }
 
   return (
     <View>
         <ScrollView>
             <View style={[styles.container, { backgroundColor: secondary }]}>
                 {/* NAV */}
-            <View id='Nav' style={styles.nav}>
+            <View id='Nav' style={[styles.nav, { borderBottomColor: 'lightgrey', borderBottomWidth: 1 }]}>
                 <Image
                     source={require('../assets/logo.png')} 
                     resizeMode='contain'
@@ -254,10 +259,11 @@ const Home = () => {
             </View>
 
             {/* CATEGORY */}
-            <View style={{ height: 150, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <ScrollView horizontal={true} style={{ marginHorizontal: 10, marginVertical: 10, zIndex: 0 }} >
+            <View style={{ height: 210, display: 'flex', justifyContent: 'center', alignItems: 'center', }}>
+                <Text style={{ fontSize: 20, fontWeight: '500', marginTop: 10, marginBottom: 5 }}>What would you like to rent?</Text>
+                <ScrollView horizontal={true} style={{ marginHorizontal: 10, zIndex: 0 }} >
                         {cateogry.map(item => (
-                            <HorizontalComp key={item.text} image={item.image} text={item.text} />
+                            <HorizontalComp key={item.text} image={item.image} text={item.text} toTrekking={toTrekking} />
                         ))}
                 </ScrollView>
             </View>
@@ -310,17 +316,18 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingTop: 35,
-        paddingHorizontal: 25
+        paddingBottom: 10,
+        paddingHorizontal: 25,
     },
     bar: {
         position: 'absolute',
         backgroundColor: 'white',
-        height: 400,
+        height: 350,
         width: '100%',
         top: 100,
         right: 0,
-        paddingHorizontal: 20,
-        paddingVertical: 50,
+        paddingHorizontal: 30,
+        // paddingVertical: ,
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
