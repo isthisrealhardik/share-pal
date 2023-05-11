@@ -249,15 +249,14 @@ const ItemComp = ({ image, heading, subHeading }) => {
 
 const HorizontalComp = ({ image, text, toTrekking }) => {
     return( 
-        <View style={{ backgroundColor: 'white', overflow: 'hidden',  borderWidth: 1, borderColor: 'lightgrey', height: 140, width: 140, borderRadius: 10, marginHorizontal: 5, marginVertical: 10, display: 'flex', justifyContent: 'center' , alignItems: 'center',}}>
-            <View style={{ position: 'absolute', backgroundColor: '#D7DF23', height: 200, width: 200, borderRadius: 1000, top: 50  }}></View>
+        <View style={[styles.boxShadow, { backgroundColor: 'white', borderRadius: 100, overflow: 'hidden', height: 90, width: 90, marginHorizontal: 5, marginVertical: 10, display: 'flex', justifyContent: 'center' , alignItems: 'center',}]}>
+            <View style={{ position: 'absolute', backgroundColor: '#D7DF23', height: 200, width: 200, top: 50, borderRadius: 1000  }}></View>
             <TouchableOpacity onPress={text == 'Trekking Gear' ? toTrekking : () => console.log('Hello')} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
                 <Image 
                     source={image} 
                     resizeMode='contain'
-                    style={{ width: 120, height: 120 }}
+                    style={{ width: 80, height: 80 }}
                 />
-                <Text style={{ fontSize: 13, color: 'black', marginBottom: 10 }}>{text}</Text>
             </TouchableOpacity>
         </View>
      )
@@ -285,23 +284,23 @@ const SlideshowComp = () => {
 
     return (
         <View>
-            <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                <TouchableOpacity onPress={decrement}>
-                    <Icon name="angle-left" size={30} color={primary} />
-                </TouchableOpacity>
-                <View style={{ backgroundColor: 'white', borderRadius: 10, height: 300, overflow: 'hidden',  width: 300, display: 'flex', justifyContent: 'center', alignItems: 'center', marginHorizontal: 20, marginVertical: 10 }}>
-                    <View style={{ position: 'absolute', backgroundColor: '#D7DF23', height: 400, width: 400, borderRadius: 1000, top: 70 }}></View>
+            <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginVertical: 20 }}>
+                <View style={{ backgroundColor: 'white', borderRadius: 10, height: 400, overflow: 'hidden',  width: 380, display: 'flex', justifyContent: 'center', alignItems: 'center', marginHorizontal: 20, marginVertical: 10 }}>
+                    <View style={{ position: 'absolute', backgroundColor: '#D7DF23', height: 500, width: 500, borderRadius: 1000, top: 160 }}></View>
+                    <TouchableOpacity onPress={decrement} style={{ position: 'absolute', top: 160, left: 20 }}>
+                        <Icon name="angle-left" size={50} color={primary} />
+                    </TouchableOpacity>
                     <Image 
                         source={slider[count].uri} 
                         resizeMode='contain'
-                        style={{ width: 350, height: 350 }}
+                        style={{ width: 400, height: 400 }}
                     />
+                    <TouchableOpacity onPress={increment} style={{ position: 'absolute', top: 160, right: 20 }}>
+                        <Icon name="angle-right" size={50} color={primary} />
+                    </TouchableOpacity>
                 </View>
-                <TouchableOpacity onPress={increment}>
-                    <Icon name="angle-right" size={30} color={primary} />
-                </TouchableOpacity>
             </View>
-            <View style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginVertical: 20 }}>
+            <View style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginVertical: 0, paddingHorizontal: 20 }}>
                 <Text style={{ fontSize: 30, fontWeight: '500', textAlign: 'center',  }}>
                     Your search for the best rental in <Text style={{ color: primary }}>Bangalore</Text> ends here!
                 </Text>
@@ -394,11 +393,14 @@ const Home = ({ navigation }) => {
             </View>
 
             {/* CATEGORY */}
-            <View style={{ height: 210, display: 'flex', justifyContent: 'center', alignItems: 'center', }}>
-                <Text style={{ fontSize: 20, fontWeight: '500', marginTop: 10, marginBottom: 5 }}>What would you like to rent?</Text>
+            <View style={{ height: 200, display: 'flex', justifyContent: 'center', alignItems: 'center', }}>
+                <Text style={{ fontSize: 25, fontWeight: '700', marginVertical: 20 }}>What would you like to rent?</Text>
                 <ScrollView horizontal={true} style={{ marginHorizontal: 10, zIndex: 0 }} >
                         {cateogry.map(item => (
-                            <HorizontalComp key={item.text} image={item.image} text={item.text} toTrekking={toTrekking} />
+                            <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                <HorizontalComp key={item.text} image={item.image} text={item.text} toTrekking={toTrekking} />
+                                <Text style={{ fontSize: 13, fontWeight: '500', color: 'black', marginBottom: 10 }}>{item.text}</Text>
+                            </View>
                         ))}
                 </ScrollView>
             </View>
@@ -503,7 +505,7 @@ const styles = StyleSheet.create({
         paddingVertical: 5,
     },
     button: {
-        backgroundColor: 'black',
+        backgroundColor: '#0927EB',
         width: 100,
         height: 40,
         display: 'flex',
