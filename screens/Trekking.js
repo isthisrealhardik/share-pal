@@ -3,6 +3,7 @@ import React from 'react'
 import { secondary } from '../colors/color'
 import { useState } from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Footer from './Footer';
 
 const info = [
   {
@@ -137,6 +138,9 @@ const Trekking = () => {
                 <TrekkingThingsComp key={item.prod} image={item.image} text={item.text} prod={item.prod} />
               ))}
             </View>
+
+            {/* Footer */}
+            <Footer />
 
         </View>
       </ScrollView>
